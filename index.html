@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title data-lang="title">本太熊官网 - 儿童内裤的奇趣宇宙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Noto Sans SC',sans-serif;}
+        body{background:linear-gradient(to bottom,#ffe6e6,#e6f3ff);color:#333;overflow-x:hidden;scroll-behavior:smooth;min-height:100vh;}
+        canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.2;}
+        header{text-align:center;padding:8rem 1rem 4rem;background:linear-gradient(135deg,rgba(255,107,107,.9),rgba(78,205,196,.9));color:#fff;}
+        h1{font-family:'Roboto',sans-serif;font-size:clamp(3rem,8vw,5rem);font-weight:700;text-shadow:2px 2px 10px rgba(0,0,0,.2);margin-top:2rem;}
+        nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:1.5rem;z-index:100;padding:1.5rem 0;background:rgba(255,255,255,.95);box-shadow:0 4px 15px rgba(0,0,0,.05);flex-wrap:wrap;}
+        nav a{position:relative;padding:.8rem 1.5rem;text-decoration:none;color:#333;font-family:'Roboto',sans-serif;font-weight:700;font-size:clamp(1rem,2.5vw,1.3rem);border-radius:8px;transition:color .3s,background .3s;}
+        nav a::after{content:'';position:absolute;bottom:-.2rem;left:50%;transform:translateX(-50%);width:0;height:.2rem;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);transition:width .3s;}
+        nav a:hover::after{width:70%;}nav a:hover{color:#ff6b6b;background:rgba(255,107,107,.05);}
+        .lang-switcher{position:fixed;top:1rem;right:2rem;z-index:101;}
+        .lang-btn{background:linear-gradient(45deg,#ff6b6b,#4ecdc4);color:#fff;border:none;padding:.8rem 1.5rem;font-size:1rem;font-weight:700;border-radius:25px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s;}
+        .lang-btn:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(0,0,0,.15);}
+        .lang-options{display:none;position:absolute;top:100%;right:0;background:rgba(255,255,255,.95);border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,.1);overflow:hidden;min-width:120px;white-space:nowrap;}
+        .lang-options button{display:block;width:100%;padding:.6rem 1.5rem;background:none;border:none;color:#333;font-size:1rem;font-weight:500;text-align:left;cursor:pointer;transition:background .3s,color .3s;white-space:nowrap;}
+        .lang-options button:hover{background:rgba(255,107,107,.1);color:#ff6b6b;}
+        section{padding:clamp(2rem,8vw,4rem) 1rem;background:rgba(255,255,255,.85);margin:1.5rem auto;max-width:1200px;border-radius:15px;box-shadow:0 5px 25px rgba(0,0,0,.03);backdrop-filter:blur(5px);}
+        h2{font-family:'Roboto',sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:700;text-align:center;margin-bottom:2rem;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);-webkit-background-clip:text;color:transparent;}
+        h3{font-family:'Noto Sans SC',sans-serif;font-size:clamp(1.2rem,3vw,2rem);font-weight:500;color:#4ecdc4;text-align:center;margin:1.5rem 0;letter-spacing:.1rem;}
+        p{font-family:'Noto Sans SC',sans-serif;font-size:clamp(.9rem,2vw,1.2rem);color:#555;max-width:800px;margin:0 auto 1rem;line-height:1.8;}
+        .gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;max-width:1200px;margin:0 auto;}
+        .card{width:100%;aspect-ratio:1;transition:transform .3s ease;}
+        .card:hover{transform:scale(1.05);}
+        .card img{width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:0 3px 15px rgba(0,0,0,.05);}
+        .video-rotator{padding:clamp(2rem,8vw,4rem) 1rem;background:rgba(255,255,255,.85);text-align:center;}
+        .rotator-container{position:relative;width:100%;max-width:1200px;margin:0 auto;overflow:hidden;}
+        .video-slider{display:flex;width:150%;transition:transform .5s ease;}
+        .video-item{flex:0 0 25%;padding:.5rem;}
+        video{width:100%;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.1);}
+        .rotator-btn{position:absolute;top:50%;transform:translateY(-50%);width:clamp(2rem,4vw,2.5rem);height:clamp(2rem,4vw,2.5rem);background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.5);color:#333;font-size:clamp(.8rem,2vw,1.2rem);cursor:pointer;border-radius:50%;backdrop-filter:blur(5px);box-shadow:0 5px 15px rgba(0,0,0,.1);transition:all .3s;z-index:10;}
+        .rotator-btn:hover{background:rgba(255,255,255,.5);transform:translateY(-50%) scale(1.1);box-shadow:0 10px 20px rgba(0,0,0,.15);color:#ff6b6b;}
+        .rotator-btn.left{left:clamp(.5rem,2vw,1rem);} .rotator-btn.right{right:clamp(.5rem,2vw,1rem);}
+        footer{background:linear-gradient(45deg,#ff6b6b,#4ecdc4);color:#fff;text-align:center;padding:clamp(1.5rem,4vw,2rem);border-radius:20px 20px 0 0;}
+        @media (max-width:768px){
+            nav{flex-direction:column;padding:1rem;gap:.5rem;}
+            .gallery{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);}
+            .video-item{flex:0 0 50%;}
+        }
+        @media (max-width:480px){
+            nav{flex-direction:column;padding:1rem;gap:.5rem;}
+            .gallery{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);}
+            .video-item{flex:0 0 100%;}
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <header id="home"><h1 data-lang="header">本太熊官网</h1></header>
+    <div class="lang-switcher">
+        <button class="lang-btn" id="langBtn" data-lang="language">语言</button>
+        <div class="lang-options" id="langOptions">
+            <button data-lang="zh-CN">中文简体</button>
+            <button data-lang="zh-TW">中文繁體</button>
+            <button data-lang="en">English</button>
+        </div>
+    </div>
+    <nav>
+        <a href="#home" data-lang="nav-home">首页</a>
+        <a href="#story" data-lang="nav-story">品牌故事</a>
+        <a href="#products" data-lang="nav-products">产品展示</a>
+        <a href="#team" data-lang="nav-team">团队力量</a>
+        <a href="#jobs" data-lang="nav-jobs">招聘信息</a>
+        <a href="#contact" data-lang="nav-contact">联系我们</a>
+    </nav>
+    <section class="brand-story" id="story">
+        <h2 data-lang="story-title">品牌故事</h2>
+        <p data-lang="story-content">本太熊的故事始于一个疯狂的梦想：让每件儿童内裤都成为一个小宇宙。2020年，一群鬼马设计师在咖啡馆里突发奇想，用彩虹和星尘勾勒出“本太熊”的模样。我们用可持续的材料和超酷的设计，把快乐穿在身上，让孩子们每天都像在开派对！</p>
+    </section>
+    <section class="products" id="products">
+        <h2 data-lang="products-title">产品展示</h2>
+        <div class="product-section">
+            <h3 data-lang="boys-zone">男孩专区</h3>
+            <div class="gallery">
+                <div class="card"><img src="assets/images/boy1.jpg" alt="款式1"></div>
+                <div class="card"><img src="assets/images/boy2.jpg" alt="款式2"></div>
+                <div class="card"><img src="assets/images/boy3.jpg" alt="款式3"></div>
+                <div class="card"><img src="assets/images/boy4.jpg" alt="款式4"></div>
+                <div class="card"><img src="assets/images/boy5.jpg" alt="款式5"></div>
+                <div class="card"><img src="assets/images/boy6.jpg" alt="款式6"></div>
+                <div class="card"><img src="assets/images/boy7.jpg" alt="款式7"></div>
+                <div class="card"><img src="assets/images/boy8.jpg" alt="款式8"></div>
+                <div class="card"><img src="assets/images/boy9.jpg" alt="款式9"></div>
+                <div class="card"><img src="assets/images/boy10.jpg" alt="款式10"></div>
+            </div>
+        </div>
+        <div class="product-section" style="margin-top:40px;">
+            <h3 data-lang="girls-zone">女孩专区</h3>
+            <div class="gallery">
+                <div class="card"><img src="assets/images/girl1.jpg" alt="款式1"></div>
+                <div class="card"><img src="assets/images/girl2.jpg" alt="款式2"></div>
+                <div class="card"><img src="assets/images/girl3.jpg" alt="款式3"></div>
+                <div class="card"><img src="assets/images/girl4.jpg" alt="款式4"></div>
+                <div class="card"><img src="assets/images/girl5.jpg" alt="款式5"></div>
+                <div class="card"><img src="assets/images/girl6.jpg" alt="款式6"></div>
+                <div class="card"><img src="assets/images/girl7.jpg" alt="款式7"></div>
+                <div class="card"><img src="assets/images/girl8.jpg" alt="款式8"></div>
+                <div class="card"><img src="assets/images/girl9.jpg" alt="款式9"></div>
+                <div class="card"><img src="assets/images/girl10.jpg" alt="款式10"></div>
+            </div>
+        </div>
+    </section>
+    <section class="team" id="team">
+        <h2 data-lang="team-title">团队力量</h2>
+        <p data-lang="team-content">本太熊的团队是一群天马行空的创造者，从奇思妙想的设计师到环保战士，每个人都在用热情点燃奇迹。我们一起脑爆创意、测试舒适度，只为让小朋友穿上最酷的内裤，笑得更开心。</p>
+    </section>
+    <section class="jobs" id="jobs">
+        <h2 data-lang="jobs-title">招聘信息</h2>
+        <p data-lang="jobs-content">想和本太熊一起飞向奇趣宇宙吗？我们急需创意设计师、数字营销高手和生产魔法师。带上你的想法，加入我们吧！简历请发至：jobs@bentai.com。</p>
+    </section>
+    <section class="contact" id="contact">
+        <h2 data-lang="contact-title">联系我们</h2>
+        <p data-lang="contact-email">邮箱: info@bentai.com</p>
+        <p data-lang="contact-phone">电话: 400-123-4567</p>
+        <p data-lang="contact-address">地址: 奇趣宇宙街88号，本太熊总部</p>
+    </section>
+    <section class="video-rotator" id="videos">
+        <h2 data-lang="videos-title">欢乐视频</h2>
+        <div class="rotator-container">
+            <div class="video-slider" id="videoSlider">
+                <div class="video-item"><video controls><source src="assets/video/video1.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video2.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video3.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video4.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video5.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video6.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video1.mp4" type="video/mp4"></video></div>
+                <div class="video-item"><video controls><source src="assets/video/video2.mp4" type="video/mp4"></video></div>
+            </div>
+        </div>
+        <button class="rotator-btn left" onclick="slideVideos('left')"><</button>
+        <button class="rotator-btn right" onclick="slideVideos('right')">></button>
+    </section>
+    <footer><p data-lang="footer">© 2025 本太熊官网</p></footer>
+    <script defer>
+        const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+        const particles=Array.from({length:50},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:Math.random()*3+1,speed:Math.random()*0.5+0.2,color:`hsl(${Math.random()*360},70%,50%)`}));
+        function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();p.y-=p.speed;if(p.y<0)p.y=canvas.height;});requestAnimationFrame(animateParticles);}animateParticles();
+        const langBtn=document.getElementById('langBtn'),langOptions=document.getElementById('langOptions');
+        langBtn.addEventListener('click',()=>{langOptions.style.display=langOptions.style.display==='block'?'none':'block';});
+        const translations={'zh-CN':{'title':'本太熊官网 - 儿童内裤的奇趣宇宙','header':'本太熊官网','language':'语言','nav-home':'首页','nav-story':'品牌故事','nav-products':'产品展示','nav-team':'团队力量','nav-jobs':'招聘信息','nav-contact':'联系我们','story-title':'品牌故事','story-content':'本太熊的故事始于一个疯狂的梦想：让每件儿童内裤都成为一个小宇宙。2020年，一群鬼马设计师在咖啡馆里突发奇想，用彩虹和星尘勾勒出“本太熊”的模样。我们用可持续的材料和超酷的设计，把快乐穿在身上，让孩子们每天都像在开派对！','products-title':'产品展示','boys-zone':'男孩专区','girls-zone':'女孩专区','team-title':'团队力量','team-content':'本太熊的团队是一群天马行空的创造者，从奇思妙想的设计师到环保战士，每个人都在用热情点燃奇迹。我们一起脑爆创意、测试舒适度，只为让小朋友穿上最酷的内裤，笑得更开心。','jobs-title':'招聘信息','jobs-content':'想和本太熊一起飞向奇趣宇宙吗？我们急需创意设计师、数字营销高手和生产魔法师。带上你的想法，加入我们吧！简历请发至：jobs@bentai.com。','contact-title':'联系我们','contact-email':'邮箱: info@bentai.com','contact-phone':'电话: 400-123-4567','contact-address':'地址: 奇趣宇宙街88号，本太熊总部','videos-title':'欢乐视频','footer':'© 2025 本太熊官网'},'zh-TW':{'title':'本太熊官網 - 兒童內褲的奇趣宇宙','header':'本太熊官網','language':'語言','nav-home':'首頁','nav-story':'品牌故事','nav-products':'產品展示','nav-team':'團隊力量','nav-jobs':'招聘資訊','nav-contact':'聯繫我們','story-title':'品牌故事','story-content':'本太熊的故事始於一個瘋狂的夢想：讓每件兒童內褲都成為一個小宇宙。2020年，一群鬼馬設計師在咖啡館裡突發奇想，用彩虹與星塵勾勒出“本太熊”的模樣。我們使用永續材料與超酷的設計，將快樂穿在身上，讓孩子們每天都像在開派對！','products-title':'產品展示','boys-zone':'男孩專區','girls-zone':'女孩專區','team-title':'團隊力量','team-content':'本太熊的團隊是一群天馬行空的創作者，從奇思妙想的設計師到環保戰士，每個人都用熱情點燃奇蹟。我們一起腦力激盪創意、測試舒適度，只為讓小朋友穿上最酷的內褲，笑得更開心。','jobs-title':'招聘資訊','jobs-content':'想和本太熊一起飛向奇趣宇宙嗎？我們急需創意設計師、數位行銷高手與生產魔法師。帶上你的想法，加入我們吧！履歷請寄至：jobs@bentai.com。','contact-title':'聯繫我們','contact-email':'郵箱: info@bentai.com','contact-phone':'電話: 400-123-4567','contact-address':'地址: 奇趣宇宙街88號，本太熊總部','videos-title':'歡樂影片','footer':'© 2025 本太熊官網'},'en':{'title':'Bentai Bear Official Website - The Fun Universe of Kids’ Underwear','header':'Bentai Bear Official Website','language':'Language','nav-home':'Home','nav-story':'Brand Story','nav-products':'Products','nav-team':'Our Team','nav-jobs':'Careers','nav-contact':'Contact Us','story-title':'Brand Story','story-content':'The story of Bentai Bear began with a wild dream: turning every piece of kids’ underwear into a little universe. In 2020, a group of quirky designers brainstormed in a café, sketching out “Bentai Bear” with rainbows and stardust. Using sustainable materials and super cool designs, we bring joy to kids, making every day feel like a party!','products-title':'Products','boys-zone':'Boys’ Zone','girls-zone':'Girls’ Zone','team-title':'Our Team','team-content':'Bentai Bear’s team is a group of imaginative creators—from visionary designers to eco-warriors—each igniting miracles with passion. We brainstorm ideas and test comfort together, all to ensure kids wear the coolest underwear and smile brighter.','jobs-title':'Careers','jobs-content':'Want to soar into the fun universe with Bentai Bear? We’re urgently seeking creative designers, digital marketing experts, and production wizards. Bring your ideas and join us! Send your resume to: jobs@bentai.com.','contact-title':'Contact Us','contact-email':'Email: info@bentai.com','contact-phone':'Phone: 400-123-4567','contact-address':'Address: 88 Qiqu Universe Street, Bentai Bear Headquarters','videos-title':'Fun Videos','footer':'© 2025 Bentai Bear Official Website'}};
+        function switchLanguage(lang){document.querySelectorAll('[data-lang]').forEach(e=>{const key=e.getAttribute('data-lang');if(translations[lang][key])e.textContent=translations[lang][key];});document.documentElement.lang=lang;langOptions.style.display='none';}
+        langOptions.querySelectorAll('button').forEach(btn=>{btn.addEventListener('click',()=>{const lang=btn.getAttribute('data-lang');switchLanguage(lang);});});
+        switchLanguage('zh-CN');
+        const videos=['assets/video/video1.mp4','assets/video/video2.mp4','assets/video/video3.mp4','assets/video/video4.mp4','assets/video/video5.mp4','assets/video/video6.mp4'],slider=document.getElementById('videoSlider'),totalVideos=videos.length;let currentIndex=0;
+        function slideVideos(direction){if(direction==='left'){currentIndex=(currentIndex-1+totalVideos)%totalVideos;}else{currentIndex=(currentIndex+1)%totalVideos;}const offset=-currentIndex*25;slider.style.transform=`translateX(${offset}%)`;}
+        slider.querySelectorAll('video').forEach(video=>{video.addEventListener('play',()=>{slider.querySelectorAll('video').forEach(v=>{if(v!==video)v.pause();});});});
+        window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+    </script>
+</body>
+</html>
