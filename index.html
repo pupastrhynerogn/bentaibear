@@ -53,6 +53,10 @@
             .video-item.active{display:block;}
             .rotator-btn{display:block;}
         }
+        /* 调整导航跳转，确保目标区域不被导航遮挡 */
+        section[id] {
+            scroll-margin-top: 100px; /* 根据导航栏高度调整，确保内容不被遮挡 */
+        }
     </style>
 </head>
 <body>
@@ -192,6 +196,23 @@
 
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // 调整导航点击跳转，确保目标区域不被导航遮挡
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    const navHeight = document.querySelector('nav').offsetHeight; // 获取导航栏高度
+                    const targetPosition = targetSection.offsetTop - navHeight; // 目标位置减去导航栏高度
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
