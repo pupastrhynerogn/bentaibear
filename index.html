@@ -88,20 +88,20 @@
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
                 background: linear-gradient(135deg, rgba(255, 107, 107, 1), rgba(78, 205, 196, 1)); /* 悬停时渐变更深 */
             }
-            /* 调整语言选项位置，紧贴按钮下方 */
+            /* 调整语言选项位置，水平居中对齐按钮，微调避免右偏移 */
             .lang-options {
                 display: none;
                 position: absolute;
                 top: 100%; /* 紧贴按钮下方 */
                 left: 50%;
-                transform: translateX(-50%); /* 水平居中 */
+                transform: translateX(-50%); /* 水平居中，确保完全对齐 */
                 background: rgba(255, 255, 255, 0.95);
                 border-radius: 10px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
                 overflow: hidden;
                 min-width: 120px;
                 white-space: nowrap;
-                margin-top: 5px; /* 微小间距，与按钮保持美观距离 */
+                margin-top: 2px; /* 微小间距，进一步紧凑 */
             }
         }
         @media (max-width:480px){
@@ -153,20 +153,20 @@
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
                 background: linear-gradient(135deg, rgba(255, 107, 107, 1), rgba(78, 205, 196, 1));
             }
-            /* 调整语言选项位置，紧贴按钮下方 */
+            /* 调整语言选项位置，水平居中对齐按钮，微调避免右偏移 */
             .lang-options {
                 display: none;
                 position: absolute;
                 top: 100%; /* 紧贴按钮下方 */
                 left: 50%;
-                transform: translateX(-50%); /* 水平居中 */
+                transform: translateX(-50%); /* 水平居中，确保完全对齐 */
                 background: rgba(255, 255, 255, 0.95);
                 border-radius: 10px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
                 overflow: hidden;
                 min-width: 120px;
                 white-space: nowrap;
-                margin-top: 5px; /* 微小间距，与按钮保持美观距离 */
+                margin-top: 2px; /* 微小间距，进一步紧凑 */
             }
             nav{margin-bottom:10px;} /* 确保导航与语言导航条有足够间距 */
         }
