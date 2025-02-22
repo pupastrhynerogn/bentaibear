@@ -43,36 +43,51 @@
         @media (max-width:768px){
             .gallery{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);}
             .video-item{flex:0 0 50%;}
-            nav{flex-direction:row;justify-content:center;width:100%;overflow-x:auto;}
+            nav{flex-direction:row;justify-content:center;width:100%;overflow-x:auto;margin-bottom:60px;} /* 增加底部间距以容纳语言栏 */
             nav a{font-size:1rem;padding:.6rem 1rem;flex:0 0 auto;}
+            /* 移除视频部分在手机端的显示 */
+            .video-rotator { display: none; }
+            /* 添加语言切换专用长栏 */
+            .lang-bar {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 60px; /* 适当高度 */
+                background: linear-gradient(135deg, rgba(255, 107, 107, 0.7), rgba(78, 205, 196, 0.7)); /* 透明渐变，与网站背景协调 */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 99;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影，增加层次感 */
+            }
             .lang-switcher {
-                position: absolute;
-                left: 50%;
-                bottom: -4rem; /* 稍微下移，保持与标题的视觉间隔美观 */
-                transform: translateX(-50%); /* 居中对齐 */
-                z-index: 101;
+                position: relative; /* 移除绝对定位，使用长栏内的相对定位 */
+                z-index: 100;
             }
             .lang-btn {
-                background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(78, 205, 196, 0.8)); /* 透明渐变，与网站背景协调 */
-                color: #fff;
-                border: 2px solid rgba(255, 255, 255, 0.7); /* 柔和的外框 */
-                padding: 0.8rem 1.8rem; /* 增大按钮大小，适中宽高比 */
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)); /* 白色透明背景，与长栏渐变对比 */
+                color: #ff6b6b; /* 粉红色文字，与网站主题协调 */
+                border: 2px solid #fff; /* 白色外框 */
+                padding: 0.8rem 1.8rem; /* 适中大小 */
                 font-size: 1rem;
                 font-weight: 700;
-                border-radius: 15px; /* 适中的圆角，现代感 */
+                border-radius: 20px; /* 圆润边角，现代感 */
                 cursor: pointer;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* 柔和阴影，增加立体感 */
-                transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-                width: 140px; /* 适中宽度 */
-                height: 45px; /* 适中高度，保持美观比例 */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+                transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+                width: 160px; /* 适中宽度 */
+                height: 40px; /* 适中高度 */
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
             .lang-btn:hover {
                 transform: scale(1.05);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-                background: linear-gradient(135deg, rgba(255, 107, 107, 1), rgba(78, 205, 196, 1)); /* 悬停时渐变更深 */
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)); /* 悬停时纯白 */
+                color: #4ecdc4; /* 悬停时蓝色文字，与网站主题协调 */
             }
         }
         @media (max-width:480px){
@@ -81,35 +96,51 @@
             .video-item{flex:0 0 100%;display:none;}
             .video-item.active{display:block;}
             .rotator-btn{display:block;}
+            /* 移除视频部分在手机端的显示 */
+            .video-rotator { display: none; }
+            /* 保持语言切换长栏样式与768px一致 */
+            .lang-bar {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 60px;
+                background: linear-gradient(135deg, rgba(255, 107, 107, 0.7), rgba(78, 205, 196, 0.7));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 99;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            }
             .lang-switcher {
-                position: absolute;
-                left: 50%;
-                bottom: -4rem; /* 稍微下移，保持与标题的视觉间隔美观 */
-                transform: translateX(-50%); /* 居中对齐 */
-                z-index: 101;
+                position: relative;
+                z-index: 100;
             }
             .lang-btn {
-                background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(78, 205, 196, 0.8)); /* 透明渐变，与网站背景协调 */
-                color: #fff;
-                border: 2px solid rgba(255, 255, 255, 0.7); /* 柔和的外框 */
-                padding: 0.8rem 1.8rem; /* 增大按钮大小，适中宽高比 */
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+                color: #ff6b6b;
+                border: 2px solid #fff;
+                padding: 0.8rem 1.8rem;
                 font-size: 1rem;
                 font-weight: 700;
-                border-radius: 15px; /* 适中的圆角，现代感 */
+                border-radius: 20px;
                 cursor: pointer;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* 柔和阴影，增加立体感 */
-                transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-                width: 140px; /* 适中宽度 */
-                height: 45px; /* 适中高度，保持美观比例 */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+                width: 160px;
+                height: 40px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
             .lang-btn:hover {
                 transform: scale(1.05);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-                background: linear-gradient(135deg, rgba(255, 107, 107, 1), rgba(78, 205, 196, 1)); /* 悬停时渐变更深 */
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+                color: #4ecdc4;
             }
+            nav{margin-bottom:60px;} /* 确保导航与语言栏有足够间距 */
         }
         /* 保持电脑版本不变 */
         @media (min-width:769px) {
@@ -135,6 +166,7 @@
                 transform: scale(1.05);
                 box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             }
+            .video-rotator { display: block; } /* 电脑版本保持视频显示 */
         }
         /* 调整导航跳转，确保目标区域不被导航遮挡 */
         section[id] {
@@ -166,6 +198,19 @@
         <a href="#jobs" data-lang="nav-jobs">招聘信息</a>
         <a href="#contact" data-lang="nav-contact">联系我们</a>
     </nav>
+    <div class="lang-bar">
+        <div class="lang-switcher">
+            <button class="lang-btn" id="langBtn" data-lang="language">语言/Language</button>
+            <div class="lang-options" id="langOptions">
+                <button data-lang="zh-CN">中文简体</button>
+                <button data-lang="zh-TW">中文繁體</button>
+                <button data-lang="en">English</button>
+                <button data-lang="th">ไทย</button>
+                <button data-lang="vi">Tiếng Việt</button>
+                <button data-lang="tl">Tagalog</button>
+            </div>
+        </div>
+    </div>
     <section class="brand-story" id="story">
         <h2 data-lang="story-title">品牌故事</h2>
         <p data-lang="story-content">本太熊的故事始于一个疯狂的梦想：让每件儿童内裤都成为一个小宇宙。2020年，一群鬼马设计师在咖啡馆里突发奇想，用彩虹和星尘勾勒出“本太熊”的模样。我们用可持续的材料和超酷的设计，把快乐穿在身上，让孩子们每天都像在开派对！</p>
@@ -217,23 +262,6 @@
         <p data-lang="contact-phone">电话: 400-123-4567</p>
         <p data-lang="contact-address">地址: 奇趣宇宙街88号，本太熊总部</p>
     </section>
-    <section class="video-rotator" id="videos">
-        <h2 data-lang="videos-title">欢乐视频</h2>
-        <div class="rotator-container">
-            <div class="video-slider" id="videoSlider">
-                <div class="video-item active"><video controls><source src="assets/video/video1.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video2.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video3.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video4.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video5.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video6.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video1.mp4" type="video/mp4"></video></div>
-                <div class="video-item"><video controls><source src="assets/video/video2.mp4" type="video/mp4"></video></div>
-            </div>
-        </div>
-        <button class="rotator-btn left" onclick="slideVideos('left')"><</button>
-        <button class="rotator-btn right" onclick="slideVideos('right')">></button>
-    </section>
     <button class="back-to-top" onclick="scrollToTop()">↑</button>
     <footer><p data-lang="footer">© 2025 本太熊官网</p></footer>
     <script defer>
@@ -250,7 +278,7 @@
             'zh-CN': {'title': '本太熊官网 - 儿童内裤的奇趣宇宙', 'header': '本太熊官网', 'language': '语言/Language', 'nav-home': '首页', 'nav-story': '品牌故事', 'nav-products': '产品展示', 'nav-team': '团队力量', 'nav-jobs': '招聘信息', 'nav-contact': '联系我们', 'story-title': '品牌故事', 'story-content': '本太熊的故事始于一个疯狂的梦想：让每件儿童内裤都成为一个小宇宙。2020年，一群鬼马设计师在咖啡馆里突发奇想，用彩虹和星尘勾勒出“本太熊”的模样。我们用可持续的材料和超酷的设计，把快乐穿在身上，让孩子们每天都像在开派对！', 'products-title': '产品展示', 'boys-zone': '男孩专区', 'girls-zone': '女孩专区', 'team-title': '团队力量', 'team-content': '本太熊的团队是一群天马行空的创造者，从奇思妙想的设计师到环保战士，每个人都在用热情点燃奇迹。我们一起脑爆创意、测试舒适度，只为让小朋友穿上最酷的内裤，笑得更开心。', 'jobs-title': '招聘信息', 'jobs-content': '想和本太熊一起飞向奇趣宇宙吗？我们急需创意设计师、数字营销高手和生产魔法师。带上你的想法，加入我们吧！简历请发至：jobs@bentai.com。', 'contact-title': '联系我们', 'contact-email': '邮箱: info@bentai.com', 'contact-phone': '电话: 400-123-4567', 'contact-address': '地址: 奇趣宇宙街88号，本太熊总部', 'videos-title': '欢乐视频', 'footer': '© 2025 本太熊官网'},
             'zh-TW': {'title': '本太熊官網 - 兒童內褲的奇趣宇宙', 'header': '本太熊官網', 'language': '語言/Language', 'nav-home': '首頁', 'nav-story': '品牌故事', 'nav-products': '產品展示', 'nav-team': '團隊力量', 'nav-jobs': '招聘資訊', 'nav-contact': '聯繫我們', 'story-title': '品牌故事', 'story-content': '本太熊的故事始於一個瘋狂的夢想：讓每件兒童內褲都成為一個小宇宙。2020年，一群鬼馬設計師在咖啡館裡突發奇想，用彩虹與星塵勾勒出“本太熊”的模樣。我們使用永續材料與超酷的設計，將快樂穿在身上，讓孩子們每天都像在開派對！', 'products-title': '產品展示', 'boys-zone': '男孩專區', 'girls-zone': '女孩專區', 'team-title': '團隊力量', 'team-content': '本太熊的團隊是一群天馬行空的創作者，從奇思妙想的設計師到環保戰士，每個人都用熱情點燃奇蹟。我們一起腦力激盪創意、測試舒適度，只為讓小朋友穿上最酷的內褲，笑得更開心。', 'jobs-title': '招聘資訊', 'jobs-content': '想和本太熊一起飛向奇趣宇宙嗎？我們急需創意設計師、數位行銷高手與生產魔法師。帶上你的想法，加入我們吧！履歷請寄至：jobs@bentai.com。', 'contact-title': '聯繫我們', 'contact-email': '郵箱: info@bentai.com', 'contact-phone': '電話: 400-123-4567', 'contact-address': '地址: 奇趣宇宙街88號，本太熊總部', 'videos-title': '歡樂影片', 'footer': '© 2025 本太熊官網'},
             'en': {'title': 'Bentai Bear Official Website - The Fun Universe of Kids’ Underwear', 'header': 'Bentai Bear Official Website', 'language': 'Language', 'nav-home': 'Home', 'nav-story': 'Brand Story', 'nav-products': 'Products', 'nav-team': 'Our Team', 'nav-jobs': 'Careers', 'nav-contact': 'Contact Us', 'story-title': 'Brand Story', 'story-content': 'The story of Bentai Bear began with a wild dream: turning every piece of kids’ underwear into a little universe. In 2020, a group of quirky designers brainstormed in a café, sketching out “Bentai Bear” with rainbows and stardust. Using sustainable materials and super cool designs, we bring joy to kids, making every day feel like a party!', 'products-title': 'Products', 'boys-zone': 'Boys’ Zone', 'girls-zone': 'Girls’ Zone', 'team-title': 'Our Team', 'team-content': 'Bentai Bear’s team is a group of imaginative creators—from visionary designers to eco-warriors—each igniting miracles with passion. We brainstorm ideas and test comfort together, all to ensure kids wear the coolest underwear and smile brighter.', 'jobs-title': 'Careers', 'jobs-content': 'Want to soar into the fun universe with Bentai Bear? We’re urgently seeking creative designers, digital marketing experts, and production wizards. Bring your ideas and join us! Send your resume to: jobs@bentai.com.', 'contact-title': 'Contact Us', 'contact-email': 'Email: info@bentai.com', 'contact-phone': 'Phone: 400-123-4567', 'contact-address': 'Address: 88 Qiqu Universe Street, Bentai Bear Headquarters', 'videos-title': 'Fun Videos', 'footer': '© 2025 Bentai Bear Official Website'},
-            'th': {'title': 'เว็บไซต์อย่างเป็นทางการของ Bentai Bear - จักรวาลแห่งความสนุกของชุดชั้นในเด็ก', 'header': 'เว็บไซต์อย่างเป็นทางการของ Bentai Bear', 'language': 'ภาษา/Language', 'nav-home': 'หน้าแรก', 'nav-story': 'เรื่องราวของแบรนด์', 'nav-products': '展示ผลิตภัณฑ์', 'nav-team': 'ทีมของเรา', 'nav-jobs': 'สมัครงาน', 'nav-contact': 'ติดต่อเรา', 'story-title': 'เรื่องราวของแบรนด์', 'story-content': 'เรื่องราวของ Bentai Bear เริ่มต้นจากความฝันสุดแปลก: ทำให้ชุดชั้นในเด็กทุกชิ้นกลายเป็นจักรวาลเล็กๆ ในปี 2020 กลุ่มนักออกแบบสุดแหวกแนวระดมความคิดในร้านกาแฟ วาดภาพ “Bentai Bear” ด้วยรุ้งกินน้ำและฝุ่นดาว เราใช้素材ที่ยั่งยืนและการออกแบบสุดเจ๋งเพื่อนำความสุขมาสู่เด็กๆ ทำให้ทุกวันเหมือนงานปาร์ตี้!', 'products-title': '展示ผลิตภัณฑ์', 'boys-zone': 'โซนสำหรับเด็กชาย', 'girls-zone': 'โซนสำหรับเด็กหญิง', 'team-title': 'ทีมของเรา', 'team-content': 'ทีมของ Bentai Bear คือกลุ่มนักสร้างสรรค์ที่เต็มไปด้วยจินตนาการ ตั้งแต่นักออกแบบที่มีไอเดียสุดล้ำไปจนถึงนักรบด้านสิ่งแวดล้อม ทุกคนจุดประกายปาฏิหาริย์ด้วยความหลงใหล เราระดมสมองหาไอเดียและทดสอบความสบาย เพื่อให้เด็กๆ ได้ใส่ชุดชั้นในสุดเจ๋งและยิ้มได้กว้างขึ้น', 'jobs-title': 'สมัครงาน', 'jobs-content': 'อยากทะยานสู่จักรวาลแห่งความสนุกกับ Bentai Bear ไหม? เราต้องการนักออกแบบสร้างสรรค์ ผู้เชี่ยวชาญด้านการตลาดดิจิทัล และนักมายากลด้านการผลิตอย่างเร่งด่วน นำไอเดiaของคุณมาร่วมกับเรา ส่งประวัติส่วนตัวมาที่: jobs@bentai.com', 'contact-title': 'ติดต่อเรา', 'contact-email': 'อีเมล: info@bentai.com', 'contact-phone': 'โทรศัพท์: 400-123-4567', 'contact-address': 'ที่อยู่: 88 ถนนจักรวาลสนุก สำนักงานใหญ่ Bentai Bear', 'videos-title': 'วิดีโอสนุกๆ', 'footer': '© 2025 เว็บไซต์อย่างเป็นทางการของ Bentai Bear'},
+            'th': {'title': 'เว็บไซต์อย่างเป็นทางการของ Bentai Bear - จักรวาลแห่งความสนุกของชุดชั้นในเด็ก', 'header': 'เว็บไซต์อย่างเป็นทางการของ Bentai Bear', 'language': 'ภาษา/Language', 'nav-home': 'หน้าแรก', 'nav-story': 'เรื่องราวของแบรนด์', 'nav-products': '展示ผลิตภัณฑ์', 'nav-team': 'ทีมของเรา', 'nav-jobs': 'สมัครงาน', 'nav-contact': 'ติดต่อเรา', 'story-title': 'เรื่องราวของแบรนด์', 'story-content': 'เรื่องราวของ Bentai Bear เริ่มต้นจากความฝันสุดแปลก: ทำให้ชุดชั้นในเด็กทุกชิ้นกลายเป็นจักรวาลเล็กๆ ในปี 2020 กลุ่มนักออกแบบสุดแหวกแนวระดมความคิดในร้านกาแฟ วาดภาพ “Bentai Bear” ด้วยรุ้งกินน้ำและฝุ่นดาว เราใช้素材ที่ยั่งยืนและการออกแบบสุดเจ๋งเพื่อนำความสุขมาสู่เด็กๆ ทำให้ทุกวันเหมือนงานปาร์ตี้!', 'products-title': '展示ผลิตภัณฑ์', 'boys-zone': 'โซนสำหรับเด็กชาย', 'girls-zone': 'โซนสำหรับเด็กหญิง', 'team-title': 'ทีมของเรา', 'team-content': 'ทีมของ Bentai Bear คือกลุ่มนักสร้างสรรค์ที่เต็มไปด้วยจินตนาการ ตั้งแต่นักออกแบบที่มีไอเดียสุดล้ำไปจนถึงนักรบด้านสิ่งแวดล้อม ทุกคนจุดประกายปาฏิหาริย์ด้วยความหลงใหล เราระดมสมองหาไอเดiaและทดสอบความสบาย เพื่อให้เด็กๆ ได้ใส่ชุดชั้นในสุดเจ๋งและยิ้มได้กว้างขึ้น', 'jobs-title': 'สมัครงาน', 'jobs-content': 'อยากทะยานสู่จักรวาลแห่งความสนุกกับ Bentai Bear ไหม? เราต้องการนักออกแบบสร้างสรรค์ ผู้เชี่ยวชาญด้านการตลาดดิจิทัล และนักมายากลด้านการผลิตอย่างเร่งด่วน นำไอเดiaของคุณมาร่วมกับเรา ส่งประวัติส่วนตัวมาที่: jobs@bentai.com', 'contact-title': 'ติดต่อเรา', 'contact-email': 'อีเมล: info@bentai.com', 'contact-phone': 'โทรศัพท์: 400-123-4567', 'contact-address': 'ที่อยู่: 88 ถนนจักรวาลสนุก สำนักงานใหญ่ Bentai Bear', 'videos-title': 'วิดีโอสนุกๆ', 'footer': '© 2025 เว็บไซต์อย่างเป็นทางการของ Bentai Bear'},
             'vi': {'title': 'Trang web chính thức của Bentai Bear - Vũ trụ vui nhộn của đồ lót trẻ em', 'header': 'Trang web chính thức của Bentai Bear', 'language': 'Ngôn ngữ/Language', 'nav-home': 'Trang chủ', 'nav-story': 'Câu chuyện thương hiệu', 'nav-products': 'Sản phẩm', 'nav-team': 'Đội ngũ của chúng tôi', 'nav-jobs': 'Tuyển dụng', 'nav-contact': 'Liên hệ', 'story-title': 'Câu chuyện thương hiệu', 'story-content': 'Câu chuyện của Bentai Bear bắt đầu từ một giấc mơ điên rồ: biến mỗi chiếc quần lót trẻ em thành một vũ trụ nhỏ. Vào năm 2020, một nhóm nhà thiết kế độc đáo đã nảy ra ý tưởng trong một quán cà phê, phác thảo “Bentai Bear” bằng cầu vồng và bụi sao. Chúng tôi sử dụng vật liệu bền vững và thiết kế cực ngầu để mang lại niềm vui cho trẻ em, khiến mỗi ngày như một buổi tiệc!', 'products-title': 'Sản phẩm', 'boys-zone': 'Khu vực bé trai', 'girls-zone': 'Khu vực bé gái', 'team-title': 'Đội ngũ của chúng tôi', 'team-content': 'Đội ngũ của Bentai Bear là nhóm những nhà sáng tạo đầy tưởng tượng, từ các nhà thiết kế giàu ý tưởng đến những chiến binh bảo vệ môi trường, mỗi người đều thắp lên phép màu bằng đam mê. Chúng tôi cùng nhau brainstorm ý tưởng và kiểm tra độ thoải mái, chỉ để đảm bảo trẻ em mặc những chiếc quần lót ngầu nhất và cười vui hơn.', 'jobs-title': 'Tuyển dụng', 'jobs-content': 'Bạn muốn bay vào vũ trụ vui nhộn cùng Bentai Bear? Chúng tôi đang cần gấp các nhà thiết kế sáng tạo, chuyên gia tiếp thị số và phù thủy sản xuất. Mang theo ý tưởng của bạn và tham gia cùng chúng tôi! Gửi CV đến: jobs@bentai.com.', 'contact-title': 'Liên hệ', 'contact-email': 'Email: info@bentai.com', 'contact-phone': 'Điện thoại: 400-123-4567', 'contact-address': 'Địa chỉ: 88 Đường Vũ Trụ Vui Nhộn, Trụ sở Bentai Bear', 'videos-title': 'Video vui nhộn', 'footer': '© 2025 Trang web chính thức của Bentai Bear'},
             'tl': {'title': 'Opisyal na Website ng Bentai Bear - Ang Masayang Uniberso ng Pambatang Panloob', 'header': 'Opisyal na Website ng Bentai Bear', 'language': 'Wika/Language', 'nav-home': 'Home', 'nav-story': 'Kwento ng Brand', 'nav-products': 'Mga Produkto', 'nav-team': 'Aming Team', 'nav-jobs': 'Trabaho', 'nav-contact': 'Makipag-ugnayan', 'story-title': 'Kwento ng Brand', 'story-content': 'Nagsimula ang kwento ng Bentai Bear sa isang ligaw na pangarap: gawing maliit na uniberso ang bawat pambatang panloob. Noong 2020, isang grupo ng mga kakaibang designer ang nag-brainstorm sa isang café, gumuhit ng “Bentai Bear” gamit ang bahaghari at alikabok ng bituin. Gumagamit kami ng sustainable na materyales at sobrang cool na disenyo para dalhin ang saya sa mga bata, na parang party ang bawat araw!', 'products-title': 'Mga Produkto', 'boys-zone': 'Zone ng mga Lalaki', 'girls-zone': 'Zone ng mga Babae', 'team-title': 'Aming Team', 'team-content': 'Ang team ng Bentai Bear ay isang grupo ng mga malikhaing tao—mula sa mga designer na puno ng ideya hanggang sa mga eco-warriors—na bawat isa’y nag-aapoy ng himala gamit ang kanilang pagnanasa. Sama-sama kaming nag-iisip ng mga ideya at sumusubok ng kaginhawaan, para lang masigurong masusuot ng mga bata ang pinakacool na panloob at ngumiti nang mas malawak.', 'jobs-title': 'Trabaho', 'jobs-content': 'Gusto mo bang lumipad patungo sa masayang uniberso kasama ang Bentai Bear? Kailangan namin ng mga creative designer, eksperto sa digital marketing, at mga wizard sa produksyon. Dalhin ang iyong mga ideya at sumali sa amin! Ipadala ang iyong resume sa: jobs@bentai.com.', 'contact-title': 'Makipag-ugnayan', 'contact-email': 'Email: info@bentai.com', 'contact-phone': 'Telepono: 400-123-4567', 'contact-address': 'Address: 88 Qiqu Universe Street, Bentai Bear Headquarters', 'videos-title': 'Mga Masasayang Video', 'footer': '© 2025 Opisyal na Website ng Bentai Bear'}
         };
